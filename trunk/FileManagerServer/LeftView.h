@@ -13,12 +13,14 @@ protected: // 仅从序列化创建
 	CLeftView();
 	DECLARE_DYNCREATE(CLeftView)
 
-// 属性
+// 操作
 public:
 	CFileManagerServerDoc* GetDocument();
 
-// 操作
+// 属性
 public:
+	CMFCShellTreeCtrl m_wndShellTree; // 树形目录
+
 
 // 重写
 	public:
