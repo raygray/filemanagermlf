@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileManagerClient", "FileManagerClient\FileManagerClient.vcproj", "{7D5E9C09-4998-45BB-B53F-4E7C558EB9AC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileManagerServer", "FileManagerServer\FileManagerServer.vcproj", "{4DAF0F12-6D03-47BC-81C2-E1F583098CA2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,10 +13,6 @@ Global
 		{7D5E9C09-4998-45BB-B53F-4E7C558EB9AC}.Debug|Win32.Build.0 = Debug|Win32
 		{7D5E9C09-4998-45BB-B53F-4E7C558EB9AC}.Release|Win32.ActiveCfg = Release|Win32
 		{7D5E9C09-4998-45BB-B53F-4E7C558EB9AC}.Release|Win32.Build.0 = Release|Win32
-		{4DAF0F12-6D03-47BC-81C2-E1F583098CA2}.Debug|Win32.ActiveCfg = Debug|Win32
-		{4DAF0F12-6D03-47BC-81C2-E1F583098CA2}.Debug|Win32.Build.0 = Debug|Win32
-		{4DAF0F12-6D03-47BC-81C2-E1F583098CA2}.Release|Win32.ActiveCfg = Release|Win32
-		{4DAF0F12-6D03-47BC-81C2-E1F583098CA2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
