@@ -27,6 +27,7 @@ private:
 public:
     void restoreWindowSize(); //重置布局
     void setSpecificText(const Parameter &parameter); //设置具体的的Text
+    virtual void InitTreeView() = 0;
 
 signals:
 
