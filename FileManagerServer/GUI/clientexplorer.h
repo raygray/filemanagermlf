@@ -9,6 +9,11 @@ public:
     ClientExplorer(BaseExplorer *baseExplorer = 0);
     ~ClientExplorer();
 
+public:
+    void InitTreeView();
+
+private:
+    void setClientSpecificText();
 };
 
 #endif // CLIENTEXPLORER_H
