@@ -3,6 +3,9 @@
 
 #include "baseexplorer.h"
 
+#include <QTreeWidgetItem>
+#include <QFileSystemModel>
+
 class ServerExplorer : public BaseExplorer
 {
 public:
@@ -10,10 +13,14 @@ public:
     ~ServerExplorer();
 
 public:
-    void InitTreeView();
+    void setupTreeView();
 
 private:
     void setServerSpecificText();
+    void createModel();
+
+private:
+    QFileSystemModel *m_fileSysModel;
 
 };
 

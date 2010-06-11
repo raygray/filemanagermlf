@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QSplitter>
 #include <QTreeWidget>
+#include <QTreeView>
 #include <QListWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -11,6 +12,8 @@
 #include <QCheckBox>
 #include <QLabel>
 #include <QFrame>
+#include <QMargins>
+#include <QLineEdit>
 
 #include "parameter.h"
 
@@ -33,9 +36,10 @@ signals:
 
 public slots:
 
-private:
+protected:
+    //main widget
     QSplitter *m_splitter;
-    QTreeWidget *m_treeView; //磁盘目录树
+    QTreeView *m_treeView; //磁盘目录树
     QListWidget *m_fileList; //文件列表
     QListWidget *m_transList;//传输列表
     QHBoxLayout *m_horizontalLayout; //水平布局，自适应填充
@@ -49,6 +53,9 @@ private:
     //文件列表的一些布局和控件
     QVBoxLayout *m_vBoxLayoutOfFileList;
     QFrame *m_fileListFrame;
+    QHBoxLayout *m_hBoxLayoutOfFileList;
+    QLabel *m_currentPathLabel;
+    QLineEdit *m_currentPathLineEdit;
 
     //传输列表的一些布局和控件
     QVBoxLayout *m_vBoxLayoutOfTransList; //传输列表中的子垂直布局
@@ -57,6 +64,7 @@ private:
     QCheckBox *m_selectAllCheckBox;
     QPushButton *m_delButton;
     QPushButton *m_transButton;
+
 
 
 };
