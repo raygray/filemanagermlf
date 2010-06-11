@@ -19,7 +19,7 @@ void BaseExplorer::createWidgets()
 
     m_splitter->setChildrenCollapsible(false); //设置拉到最小时不隐藏
     m_treeView = new QTreeView(this);
-    m_fileList = new QListWidget(this);
+    m_fileListView = new QListView(this);
     m_transList = new QListWidget(this);
 
     m_horizontalLayout = new QHBoxLayout(this);
@@ -70,7 +70,7 @@ void BaseExplorer::setupWidgets()
     m_hBoxLayoutOfFileList->addWidget(m_currentPathLineEdit);
 
     m_vBoxLayoutOfFileList->addLayout(m_hBoxLayoutOfFileList);
-    m_vBoxLayoutOfFileList->addWidget(m_fileList);
+    m_vBoxLayoutOfFileList->addWidget(m_fileListView);
 
     m_fileListFrame->setLayout(m_vBoxLayoutOfFileList);
     m_splitter->addWidget(m_fileListFrame);

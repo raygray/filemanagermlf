@@ -8,16 +8,20 @@
 
 class ServerExplorer : public BaseExplorer
 {
+    Q
 public:
     ServerExplorer(BaseExplorer *baseExplorer = 0);
     ~ServerExplorer();
 
-public:
-    void setupTreeView();
-
 private:
     void setServerSpecificText();
     void createModel();
+    void setupTreeView();
+    void setupFileListView();
+    void allConnect();
+
+private slots:
+    void doubleClkOnFileList();
 
 private:
     QFileSystemModel *m_fileSysModel;
