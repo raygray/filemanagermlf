@@ -13,13 +13,14 @@ ClientExplorer::~ClientExplorer()
 
 void ClientExplorer::setClientSpecificText()
 {
-    QStringList parameter;
-    parameter.append(tr("客户端"));
-    parameter.append(tr("上传至服务器"));
+    QMap<QString, QString> paraMap;
+    paraMap.insert("typeLabel", tr("<font color = red>客户端</font>"));
+    paraMap.insert("transButton", tr("上传至服务器"));
+    paraMap.insert("currentPathLabel", tr("<font color = red>路径</font>"));
+    Parameter parameter(paraMap);
     setSpecificText(parameter);
 }
 
 void ClientExplorer::InitTreeView()
 {
-
 }

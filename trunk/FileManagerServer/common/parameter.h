@@ -3,23 +3,21 @@
 
 #include <QString>
 #include <QStringList>
+#include <QMap>
 
 class Parameter
 {
 public:
     Parameter();
-    Parameter(QString textType, QString textTransButton);
-    Parameter(QStringList allText);
+    Parameter(QMap<QString, QString> paraMap);
+
     ~Parameter();
 
 public:
-    QString textType() const;
-    QString textTransButton() const;
+    QString getValueOf(const QString key) const;
 
 private:
-    QString m_textType;
-    QString m_textTransButton;
-
+    QMap<QString, QString> m_paraMap;
 };
 
 #endif // PARAMETER_H

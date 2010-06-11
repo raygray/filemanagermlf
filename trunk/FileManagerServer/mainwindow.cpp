@@ -78,8 +78,6 @@ void MainWindow::createWidgets()
     m_splitterMain->setStretchFactor(1, 1);
     m_splitterMain->setChildrenCollapsible(false); //设置拉到最小时不隐藏
 
-    //clientExplorer = new ClientExplorer(new BaseExplorer(this));
-    //serverExplorer = new ServerExplorer(new BaseExplorer(this));
     clientExplorer = new ClientExplorer();
     serverExplorer = new ServerExplorer();
 }
