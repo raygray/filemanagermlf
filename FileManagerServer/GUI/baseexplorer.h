@@ -5,6 +5,7 @@
 #include <QSplitter>
 #include <QTreeWidget>
 #include <QTreeView>
+#include <QListView>
 #include <QListWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -40,7 +41,7 @@ protected:
     //main widget
     QSplitter *m_splitter;
     QTreeView *m_treeView; //磁盘目录树
-    QListWidget *m_fileList; //文件列表
+    QListView *m_fileListView; //文件列表
     QListWidget *m_transList;//传输列表
     QHBoxLayout *m_horizontalLayout; //水平布局，自适应填充
     QList<int> m_sizeOfWidgetsInSplitter; //控件初始大小
