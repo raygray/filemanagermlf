@@ -1,14 +1,20 @@
 #include "serverexplorer.h"
 #include <QLocale>
+#include <QMessageBox>
+#include <QProcess>
+
+#include "common.h"
 
 ServerExplorer::ServerExplorer(BaseExplorer *baseExplorer)
     :BaseExplorer(baseExplorer)
 {
     setServerSpecificText(); //设置一些控件的显示文字
-    createModel();
+    createWidgets();
     setupTreeView();
     setupFileListView();
+
     allConnect();
+
 }
 
 ServerExplorer::~ServerExplorer()
@@ -20,17 +26,21 @@ void ServerExplorer::setServerSpecificText()
 {
     QMap<QString, QString> paraMap;
     paraMap.insert("typeLabel", tr("<font color = green>服务器</font>"));
-    paraMap.insert("transButton", tr("发送到服务器"));
+    paraMap.insert("transButton", tr("发送到客户端"));
     paraMap.insert("currentPathLabel", tr("<font color = green>路径</font>"));
     Parameter parameter(paraMap);
+
     setSpecificText(parameter);
 }
 
-void ServerExplorer::createModel()
+void ServerExplorer::createWidgets()
 {
     m_fileSysModel = new QFileSystemModel(this);
     m_fileSysModel->setRootPath("");
     //m_fileSysModel->setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+
+    m_scrollList = new QScrollBar(this);
+
 }
 
 void ServerExplorer::setupTreeView()
@@ -50,20 +60,167 @@ void ServerExplorer::setupFileListView()
     m_fileListView->setModel(m_fileSysModel);
     m_fileListView->setRootIndex(m_fileSysModel->index(""));
     m_fileListView->setModelColumn(0);
+    m_fileListView->setHorizontalScrollBar(m_scrollList);
+    m_fileListView->setContextMenuPolicy(Qt::CustomContextMenu); //会发射customContextMenuRequested信号
 
 }
 
 void ServerExplorer::allConnect()
 {
     //点击目录树，设置文件列表
-    connect(m_treeView, SIGNAL(clicked(const QModelIndex &)),
-            m_fileListView, SLOT(setRootIndex(const QModelIndex &)));
+    connect(m_treeView, SIGNAL(pressed(const QModelIndex &)),
+            this, SLOT(pressOnTreeView(const QModelIndex &)));
     //点击列表，设置目录树
     connect(m_fileListView, SIGNAL(clicked(const QModelIndex &)),
-            m_treeView, SLOT(setCurrentIndex(const QModelIndex &)));
+            this, SLOT(clkOnFileList(const QModelIndex &)));
     //双击列表，打开目录树
     connect(m_fileListView, SIGNAL(doubleClicked(const QModelIndex &)),
-            m_fileListView, SLOT(setRootIndex(const QModelIndex &)));
+            this, SLOT(doubleClkOnFileList(const QModelIndex &)));
+
+    connect(m_fileListView, SIGNAL(customContextMenuRequested(const QPoint &)),
+            this, SLOT(popMenuRequested(const QPoint &)));
+
+}
+
+void ServerExplorer::pressOnTreeView(const QModelIndex & index)
+{
+    if(m_fileSysModel->isDir(index))
+    {
+        m_fileListView->setRootIndex(index);
+    }
+}
+
+void ServerExplorer::clkOnFileList(const QModelIndex &index)
+{
+    if(m_fileSysModel->isDir(index))
+    {
+        m_treeView->setCurrentIndex(index);
+    }
+}
+
+void ServerExplorer::doubleClkOnFileList(const QModelIndex & index)
+{
+    if(m_fileSysModel->isDir(index))
+    {
+        m_fileListView->setRootIndex(index);
+    }
+    else
+    {
+        QProcess * openProc = new QProcess(this);
+        QString qfilePath("cmd.exe /C \"");
+        qfilePath.append(m_fileSysModel->fileInfo(index).absoluteFilePath());
+        qfilePath.append("\"");
+
+        openProc->start(qfilePath);
+        //delete openProc;
+    }
+
+}
 
 
+void ServerExplorer::popMenuRequested(const QPoint &point)
+{
+    QMenu *m_popMenuFileList;
+    QAction *m_addToTransAction;
+    QAction *m_renameFileAction;
+    QAction *m_delFileAction;
+
+    m_popMenuFileList = new QMenu(this);
+    m_addToTransAction = new QAction(tr("添加至传送列表"),this);
+    m_renameFileAction = new QAction(tr("重命名"), this);
+    m_delFileAction = new QAction(tr("删除"),this);
+
+
+    m_popMenuFileList->addAction(m_addToTransAction);
+    m_popMenuFileList->addSeparator();
+    m_popMenuFileList->addAction(m_renameFileAction);
+    m_popMenuFileList->addSeparator();
+    m_popMenuFileList->addAction(m_delFileAction);
+
+    if(m_fileSysModel->isDir(m_fileListView->indexAt(point)))
+    {
+        m_addToTransAction->setEnabled(false);
+    }
+
+    connect(m_addToTransAction, SIGNAL(triggered()),
+            this, SLOT(addToTransList()));
+    connect(m_renameFileAction, SIGNAL(triggered()),
+            this, SLOT(renameFile()));
+    connect(m_delFileAction, SIGNAL(triggered()),
+            this, SLOT(delFile()));
+
+    m_popMenuFileList->exec(QCursor::pos());
+
+    delete m_addToTransAction;
+    delete m_renameFileAction;
+    delete m_delFileAction;
+    delete m_popMenuFileList;
+}
+
+void ServerExplorer::addToTransList()
+{
+    QString addPathStr("\"");
+    addPathStr.append(m_fileSysModel->filePath(m_fileListView->currentIndex()));
+    addPathStr.append("\"");
+    m_transList->addItem(addPathStr);
+}
+
+void ServerExplorer::renameFile()
+{
+
+}
+
+void ServerExplorer::delFile()
+{
+    QModelIndex nowIndex = m_fileListView->currentIndex();
+    if(m_fileSysModel->isDir(nowIndex))
+    {
+        QString text(tr("确认要删除文件夹\n"));
+        text.append(m_fileSysModel->fileName(nowIndex));
+        text.append(tr("\n么？"));
+        if( QMessageBox::Yes ==
+            QMessageBox::question(this, tr("确认"), text,
+                                  QMessageBox::Yes, QMessageBox::Cancel)
+            )
+        {
+            //不准删除系统目录
+            if(isSystemDir(m_fileSysModel->filePath(nowIndex)))
+            {
+                QMessageBox::critical(this, tr("错误"), tr("系统文件不允许删除"));
+                return ;
+            }
+            else
+            {
+                //预存父目录项
+                QModelIndex parent = nowIndex.parent();
+                if( ! m_fileSysModel->rmdir(m_fileListView->currentIndex()))
+                {
+                    QMessageBox::critical(this, tr("错误"), tr("删除失败，请检查权限"), QMessageBox::Abort);
+                    return ;
+                }
+                else
+                {
+                    m_treeView->setRootIndex(parent);
+                }
+            }
+
+        }
+    }
+    else
+    {
+        QString text(tr("确认要删除\n"));
+        text.append(m_fileSysModel->fileName(nowIndex));
+        text.append(tr("\n么？"));
+        if( QMessageBox::Yes ==
+            QMessageBox::question(this, tr("确认"), text,
+                                  QMessageBox::Yes, QMessageBox::Cancel)
+            )
+        {
+            if( ! m_fileSysModel->remove(nowIndex))
+            {
+                QMessageBox::critical(this, tr("错误"), tr("删除失败，请检查权限"), QMessageBox::Abort);
+                return ;
+            }
+        }
+    }
 }

@@ -5,26 +5,40 @@
 
 #include <QTreeWidgetItem>
 #include <QFileSystemModel>
+#include <QScrollBar>
+#include <QMenu>
+#include <QAction>
 
 class ServerExplorer : public BaseExplorer
 {
-    Q
+    Q_OBJECT
 public:
     ServerExplorer(BaseExplorer *baseExplorer = 0);
     ~ServerExplorer();
 
 private:
     void setServerSpecificText();
-    void createModel();
+    void createWidgets();
     void setupTreeView();
     void setupFileListView();
+
     void allConnect();
 
 private slots:
-    void doubleClkOnFileList();
+    void pressOnTreeView(const QModelIndex &);
+    void clkOnFileList(const QModelIndex &index);
+    void doubleClkOnFileList(const QModelIndex & index);
+
+    void popMenuRequested(const QPoint &point);
+
+    void addToTransList();
+    void renameFile();
+    void delFile();
 
 private:
     QFileSystemModel *m_fileSysModel;
+    QScrollBar *m_scrollList;
+
 
 };
 
