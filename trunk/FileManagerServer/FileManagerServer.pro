@@ -4,22 +4,25 @@
 QT += network \
     xml
 TARGET = FileManagerServer
-
-INCLUDEPATH += .\
+INCLUDEPATH += . \
     GUI \
     network \
     other \
     common \
     transmission \
-TEMPLATE = app
+    TEMPLATE \
+    = \
+    app
 SOURCES += main.cpp \
     mainwindow.cpp \
     GUI\baseexplorer.cpp \
     GUI\serverexplorer.cpp \
     GUI\clientexplorer.cpp \
-    common\parameter.cpp
+    common\parameter.cpp \
+    common/common.cpp
 HEADERS += mainwindow.h \
     GUI\baseexplorer.h \
     GUI\serverexplorer.h \
     GUI\clientexplorer.h \
-    common\parameter.h
+    common\parameter.h \
+    common/common.h

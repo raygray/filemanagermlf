@@ -5,6 +5,7 @@
 
 class ClientExplorer : public BaseExplorer
 {
+    Q_OBJECT
 public:
     ClientExplorer(BaseExplorer *baseExplorer = 0);
     ~ClientExplorer();

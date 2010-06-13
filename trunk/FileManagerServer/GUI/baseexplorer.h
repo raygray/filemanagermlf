@@ -20,7 +20,7 @@
 
 class BaseExplorer : public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit BaseExplorer(QWidget *parent = 0);
     virtual ~BaseExplorer();
@@ -31,7 +31,6 @@ private:
 public:
     void restoreWindowSize(); //重置布局
     void setSpecificText(const Parameter &parameter); //设置具体的的Text
-    virtual void InitTreeView() = 0;
 
 signals:
 
