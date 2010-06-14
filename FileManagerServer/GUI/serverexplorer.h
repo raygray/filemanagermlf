@@ -8,6 +8,7 @@
 #include <QScrollBar>
 #include <QMenu>
 #include <QAction>
+#include <QFileInfoList>
 
 class ServerExplorer : public BaseExplorer
 {
@@ -32,12 +33,16 @@ private slots:
     void popMenuRequested(const QPoint &point);
 
     void addToTransList();
+    void openFileOrDir();
     void renameFile();
     void delFile();
+
+    void clkOnTransButton();
 
 private:
     QFileSystemModel *m_fileSysModel;
     QScrollBar *m_scrollList;
+
 
 
 };

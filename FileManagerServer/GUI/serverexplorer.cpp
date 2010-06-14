@@ -1,9 +1,12 @@
 #include "serverexplorer.h"
 #include <QLocale>
 #include <QMessageBox>
-#include <QProcess>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include "common.h"
+
+
 
 ServerExplorer::ServerExplorer(BaseExplorer *baseExplorer)
     :BaseExplorer(baseExplorer)
@@ -80,6 +83,9 @@ void ServerExplorer::allConnect()
     connect(m_fileListView, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(popMenuRequested(const QPoint &)));
 
+    connect(m_transButton, SIGNAL(clicked()),
+            this, SLOT(clkOnTransButton()));
+
 }
 
 void ServerExplorer::pressOnTreeView(const QModelIndex & index)
@@ -106,13 +112,15 @@ void ServerExplorer::doubleClkOnFileList(const QModelIndex & index)
     }
     else
     {
-        QProcess * openProc = new QProcess(this);
-        QString qfilePath("cmd.exe /C \"");
+        QString qfilePath("\"");
         qfilePath.append(m_fileSysModel->fileInfo(index).absoluteFilePath());
         qfilePath.append("\"");
+        if ( ! QDesktopServices::openUrl(QUrl(qfilePath)) )
+        {
+            QMessageBox::information(this, tr("提示"), tr("没有相关的程序打开此文件"),
+                                     QMessageBox::Cancel);
+        }
 
-        openProc->start(qfilePath);
-        //delete openProc;
     }
 
 }
@@ -122,19 +130,21 @@ void ServerExplorer::popMenuRequested(const QPoint &point)
 {
     QMenu *m_popMenuFileList;
     QAction *m_addToTransAction;
+    QAction *m_openAction;
     QAction *m_renameFileAction;
     QAction *m_delFileAction;
 
     m_popMenuFileList = new QMenu(this);
     m_addToTransAction = new QAction(tr("添加至传送列表"),this);
+    m_openAction = new QAction(tr("打开"), this);
     m_renameFileAction = new QAction(tr("重命名"), this);
     m_delFileAction = new QAction(tr("删除"),this);
 
 
     m_popMenuFileList->addAction(m_addToTransAction);
     m_popMenuFileList->addSeparator();
+    m_popMenuFileList->addAction(m_openAction);
     m_popMenuFileList->addAction(m_renameFileAction);
-    m_popMenuFileList->addSeparator();
     m_popMenuFileList->addAction(m_delFileAction);
 
     if(m_fileSysModel->isDir(m_fileListView->indexAt(point)))
@@ -144,6 +154,8 @@ void ServerExplorer::popMenuRequested(const QPoint &point)
 
     connect(m_addToTransAction, SIGNAL(triggered()),
             this, SLOT(addToTransList()));
+    connect(m_openAction, SIGNAL(triggered()),
+            this, SLOT(openFileOrDir()));
     connect(m_renameFileAction, SIGNAL(triggered()),
             this, SLOT(renameFile()));
     connect(m_delFileAction, SIGNAL(triggered()),
@@ -159,10 +171,23 @@ void ServerExplorer::popMenuRequested(const QPoint &point)
 
 void ServerExplorer::addToTransList()
 {
+    QModelIndex nowIndex = m_fileListView->currentIndex();
+    QFileInfo nowFileInfo = m_fileSysModel->fileInfo(nowIndex);
+
+    //显示在列表中
     QString addPathStr("\"");
-    addPathStr.append(m_fileSysModel->filePath(m_fileListView->currentIndex()));
+    addPathStr.append(nowFileInfo.absoluteFilePath());
     addPathStr.append("\"");
     m_transList->addItem(addPathStr);
+
+    //添加到发送列表
+    m_transFileInfoList.append(nowFileInfo);
+}
+
+void ServerExplorer::openFileOrDir()
+{
+    QModelIndex index = m_fileListView->currentIndex();
+    doubleClkOnFileList(index); //打开和双击的行为一样的
 }
 
 void ServerExplorer::renameFile()
@@ -195,7 +220,8 @@ void ServerExplorer::delFile()
                 QModelIndex parent = nowIndex.parent();
                 if( ! m_fileSysModel->rmdir(m_fileListView->currentIndex()))
                 {
-                    QMessageBox::critical(this, tr("错误"), tr("删除失败，请检查权限"), QMessageBox::Abort);
+                    QMessageBox::critical(this, tr("错误"), tr("删除失败，请检查权限"),
+                                          QMessageBox::Cancel);
                     return ;
                 }
                 else
@@ -218,9 +244,16 @@ void ServerExplorer::delFile()
         {
             if( ! m_fileSysModel->remove(nowIndex))
             {
-                QMessageBox::critical(this, tr("错误"), tr("删除失败，请检查权限"), QMessageBox::Abort);
+                QMessageBox::critical(this, tr("错误"), tr("删除失败，请检查权限"),
+                                      QMessageBox::Cancel);
                 return ;
             }
         }
     }
+}
+
+
+void ServerExplorer::clkOnTransButton()
+{
+
 }
