@@ -19,11 +19,13 @@ SOURCES += main.cpp \
     GUI\serverexplorer.cpp \
     GUI\clientexplorer.cpp \
     common\parameter.cpp \
-    common/common.cpp
+    common/common.cpp \
+    network/datatransfer.cpp
 HEADERS += mainwindow.h \
     GUI\baseexplorer.h \
     GUI\serverexplorer.h \
     GUI\clientexplorer.h \
     common\parameter.h \
-    common/common.h
-LIBS += -lws2_32 \
+    common/common.h \
+    network/datatransfer.h
+LIBS += -lws2_32
