@@ -74,3 +74,4 @@ bool receiveData(SOCKET socket, char *buffer, long long size)
     }
     return true;
 }
+

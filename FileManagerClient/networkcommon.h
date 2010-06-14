@@ -18,6 +18,11 @@ bool sendData(SOCKET socket, const char *data, long long size); //发送数据
 
 bool receiveData(SOCKET socket, char *buffer, long long size); //接收数据
 
+enum ErrorCode{
+        FileOpenError, FileReadError, FileWriteError,
+        CreateSocketError, BindError, ListenError, AcceptError,
+        SendDataError, ReceiveDataError
+};
 
 
 #endif // NETWORKCOMMON_H
