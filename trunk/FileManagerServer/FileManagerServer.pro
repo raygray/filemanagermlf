@@ -20,12 +20,14 @@ SOURCES += main.cpp \
     GUI\clientexplorer.cpp \
     common\parameter.cpp \
     common/common.cpp \
-    network/datatransfer.cpp
+    network/datatrans.cpp \
+    network/filetrans.cpp
 HEADERS += mainwindow.h \
     GUI\baseexplorer.h \
     GUI\serverexplorer.h \
     GUI\clientexplorer.h \
     common\parameter.h \
     common/common.h \
-    network/datatransfer.h
+    network/datatrans.h \
+    network/filetrans.h
 LIBS += -lws2_32
