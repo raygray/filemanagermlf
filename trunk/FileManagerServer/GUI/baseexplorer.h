@@ -15,6 +15,7 @@
 #include <QFrame>
 #include <QMargins>
 #include <QLineEdit>
+#include <QFileInfoList>
 
 #include "parameter.h"
 
@@ -65,6 +66,8 @@ protected:
     QPushButton *m_delButton;
     QPushButton *m_transButton;
 
+protected:
+    QFileInfoList m_transFileInfoList;
 
 
 };

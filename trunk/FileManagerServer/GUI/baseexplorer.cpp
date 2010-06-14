@@ -1,7 +1,7 @@
 #include "baseexplorer.h"
 
 BaseExplorer::BaseExplorer(QWidget *parent) :
-    QWidget(parent)
+    QWidget(parent), m_transFileInfoList()
 {
     createWidgets();
     setupWidgets();

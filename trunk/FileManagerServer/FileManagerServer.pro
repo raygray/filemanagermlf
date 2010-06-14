@@ -26,3 +26,4 @@ HEADERS += mainwindow.h \
     GUI\clientexplorer.h \
     common\parameter.h \
     common/common.h
+LIBS += -lws2_32 \
