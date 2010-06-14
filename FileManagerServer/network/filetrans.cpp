@@ -3,10 +3,6 @@
 #include <cassert>
 #include <winsock2.h>
 
-FileTrans::FileTrans()
-{
-}
-
 FileTrans::FileTrans(const QString &filePath)
     :m_file(filePath)
 {
