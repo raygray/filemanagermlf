@@ -92,7 +92,7 @@ void MainWindow::setupWidgets()
 
     this->setWindowTitle(tr("文件管理系统\\VHBLCD网络广告"));
     this->setMinimumSize(800,600);
-//    this->resize(750,500);
+    this->resize(1000,600);
 
 }
 

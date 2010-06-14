@@ -9,7 +9,6 @@
 class FileTrans : public DataTrans
 {
 public:
-    FileTrans();
     FileTrans(const QString &filePath);
     FileTrans(const QFileInfo &fileInfo);
     ~FileTrans(); //virtual
