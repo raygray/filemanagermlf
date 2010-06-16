@@ -1,5 +1,5 @@
-#ifndef SERVERTHREAD_H
-#define SERVERTHREAD_H
+#ifndef DATASERVERTHREAD_H
+#define DATASERVERTHREAD_H
 
 #include <QThread>
 #include <QMutex>
@@ -12,14 +12,14 @@ extern "C"
 
 #include "datatrans.h"
 
-class ServerThread : public QThread
+class DataServerThread : public QThread
 {
     Q_OBJECT
 private:
-    explicit ServerThread(QObject *parent = 0); //单件模式
+    explicit DataServerThread(QObject *parent = 0); //单件模式
 
 public:
-    static ServerThread* createServer();
+    static DataServerThread* createServer();
     void addTrans(DataTrans* trans);
     DataTrans* getAndPopTrans(int transId);
 signals:
@@ -35,4 +35,4 @@ private:
 
 };
 
-#endif // SERVERTHREAD_H
+#endif // DATASERVERTHREAD_H
