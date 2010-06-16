@@ -24,7 +24,9 @@ SOURCES += main.cpp \
     network/filetrans.cpp \
     network/serverthread.cpp \
     network/networkcommon.cpp \
-    network/datachannel.cpp
+    network/datachannel.cpp \
+    network/commandchannel.cpp \
+    network/commandserverthread.cpp
 HEADERS += mainwindow.h \
     GUI\baseexplorer.h \
     GUI\serverexplorer.h \
@@ -35,5 +37,7 @@ HEADERS += mainwindow.h \
     network/filetrans.h \
     network/serverthread.h \
     network/networkcommon.h \
-    network/datachannel.h
+    network/datachannel.h \
+    network/commandchannel.h \
+    network/commandserverthread.h
 LIBS += -lws2_32

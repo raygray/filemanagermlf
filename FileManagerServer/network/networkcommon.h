@@ -1,7 +1,7 @@
 #ifndef NETWORKCOMMON_H
 #define NETWORKCOMMON_H
 
-// 使用Winsock2 需要在编译选项中加入-lws_32
+// 使用winsock2 需要在编译选项中加入-lws_32
 // 在.pro中加入 LIBS += -lws2_32 \ 即可
 
 
