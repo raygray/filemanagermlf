@@ -1,6 +1,6 @@
 #include "datachannel.h"
 #include "networkcommon.h"
-#include "serverthread.h"
+#include "dataserverthread.h"
 #include <QDebug>
 
 DataChannel::DataChannel(SOCKET socket, QObject *parent)
@@ -19,7 +19,7 @@ void DataChannel::run()
     }
     transId = ntohl(transId);
 
-    ServerThread *server = ServerThread::createServer();
+    DataServerThread *server = DataServerThread::createServer();
 
     DataTrans *dataTrans;
     try

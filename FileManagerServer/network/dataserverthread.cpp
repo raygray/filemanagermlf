@@ -1,19 +1,19 @@
-#include "serverthread.h"
+#include "dataserverthread.h"
 #include "networkcommon.h"
 
-ServerThread::ServerThread(QObject *parent)
+DataServerThread::DataServerThread(QObject *parent)
     :QThread(parent)
 {
 }
 
-ServerThread* ServerThread::createServer()
+DataServerThread* DataServerThread::createServer()
 {
-    static ServerThread* server = new ServerThread();
+    static DataServerThread* server = new DataServerThread();
     server->start();
     return server;
 }
 
-void ServerThread::run()
+void DataServerThread::run()
 {
     m_socket = socket(AF_INET, SOCK_STREAM, 0);
     if(m_socket == INVALID_SOCKET)
@@ -59,12 +59,12 @@ void ServerThread::run()
 }
 
 
-void ServerThread::addTrans(DataTrans *trans)
+void DataServerThread::addTrans(DataTrans *trans)
 {
 
 }
 
-DataTrans* ServerThread::getAndPopTrans(int transId)
+DataTrans* DataServerThread::getAndPopTrans(int transId)
 {
     return 0;
 }

@@ -22,7 +22,7 @@ SOURCES += main.cpp \
     common/common.cpp \
     network/datatrans.cpp \
     network/filetrans.cpp \
-    network/serverthread.cpp \
+    network/dataserverthread.cpp \
     network/networkcommon.cpp \
     network/datachannel.cpp \
     network/commandchannel.cpp \
@@ -35,7 +35,7 @@ HEADERS += mainwindow.h \
     common/common.h \
     network/datatrans.h \
     network/filetrans.h \
-    network/serverthread.h \
+    network/dataserverthread.h \
     network/networkcommon.h \
     network/datachannel.h \
     network/commandchannel.h \
