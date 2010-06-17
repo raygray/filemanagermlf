@@ -24,7 +24,7 @@ void DataServerThread::run()
     SOCKADDR_IN serverAddr;
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-    serverAddr.sin_port = htons(2067);
+    serverAddr.sin_port = htons(DataChannelPort);
 
     if(SOCKET_ERROR ==
        bind(m_socket, (SOCKADDR*)&serverAddr, sizeof(serverAddr)))

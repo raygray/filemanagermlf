@@ -4,6 +4,11 @@ extern "C"
 #include <winsock2.h>
 }
 
+
+const unsigned short CommandChannelPort = 2067;
+const unsigned short DataChannelPort = 2922;
+
+
 //初始化检查Socket版本
 bool setupSocketLib()
 {
