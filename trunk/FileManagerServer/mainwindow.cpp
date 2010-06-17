@@ -3,6 +3,10 @@
 #include <QMessageBox>
 
 
+#include "commandserverthread.h"
+#include "dataserverthread.h"
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -11,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     createStatusBar();
     createWidgets();
     setupWidgets();
+
+    startServers();
 
 }
 
@@ -94,6 +100,12 @@ void MainWindow::setupWidgets()
     this->setMinimumSize(800,600);
     this->resize(1000,600);
 
+}
+
+void MainWindow::startServers()
+{
+    CommandServerThread::createServer();
+    DataServerThread::createServer();
 }
 
 void MainWindow::exit()

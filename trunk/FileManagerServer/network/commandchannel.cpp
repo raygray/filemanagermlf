@@ -3,3 +3,8 @@
 CommandChannel::CommandChannel()
 {
 }
+
+void CommandChannel::run()
+{
+
+}

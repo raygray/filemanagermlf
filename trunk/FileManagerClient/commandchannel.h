@@ -2,6 +2,7 @@
 #define COMMANDCHANNEL_H
 
 #include <QThread>
+#include <QByteArray>
 
 #include "senddatathread.h"
 extern "C"
@@ -12,7 +13,14 @@ extern "C"
 class CommandChannel : public QThread
 {
 public:
-    CommandChannel();
+    static CommandChannel* createCommandChannel(SOCKET socket);
+    void sendData(const QByteArray& data);
+
+private:
+    CommandChannel(SOCKET socket);
+
+public:
+    ~CommandChannel();
 
 protected:
     void run();
