@@ -2,6 +2,9 @@
 #define COMMANDSERVERTHREAD_H
 
 #include <QThread>
+#include <QString>
+
+#include "networkcommon.h"
 
 extern "C"
 {
@@ -18,10 +21,13 @@ private:
     explicit CommandServerThread(QObject *parent = 0);
 
 signals:
-    void errorHappened(int errorCode);
+    void errorHappened(int errorCode, QString file, long long line);
 
 public:
     void run(); //virtual fun from QThread
+
+private:
+    void setupErrorProcess();
 
 private:
     SOCKET m_socket;

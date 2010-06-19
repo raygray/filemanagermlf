@@ -1,10 +1,14 @@
 #include "common.h"
 #include <QStringList>
 #include <QDir>
+#include <QDebug>
+#include "networkcommon.h"
 
 static QStringList g_sysDir;
 
 static bool g_firstRun = true;
+
+ErrorProcess *g_errorProcess; //全局变量，控制错误的处理
 
 bool isSystemDir(const QString path)
 {
@@ -30,3 +34,63 @@ bool isSystemDir(const QString path)
         return false;
     }
 }
+
+void printErrorInfo(QString filename, long long line)
+{
+    qDebug() << "Error happened in : " << filename << line;
+}
+
+
+//////////////////////////////////////////////
+// functions of class ErrorProcess
+
+ErrorProcess::ErrorProcess()
+{
+}
+
+ErrorProcess* ErrorProcess::createErrorProcess()
+{
+    static ErrorProcess *errorProc = new ErrorProcess();
+    return errorProc;
+}
+
+void ErrorProcess::errorProcess(int errorCode, QString file, long long line)
+{
+    printErrorInfo(file, line); //打印出出错的文件和行号
+
+    switch(errorCode)
+    {
+    case FileOpenError:
+        qDebug() << tr("!!!ERROR!!! file open error\n");
+        break;
+    case FileReadError:
+        qDebug() << tr("!!!ERROR!!! file read error\n");
+        break;
+    case FileWriteError:
+        qDebug() << tr("!!!ERROR!!! file write error\n");
+        break;
+    case CreateSocketError:
+        qDebug() << tr("!!!ERROR!!! create socket error\n");
+        break;
+    case BindError:
+        qDebug() << tr("!!!ERROR!!! bind socket error\n");
+        break;
+    case ListenError:
+        qDebug() << tr("!!!ERROR!!! listen socket error\n");
+        break;
+    case AcceptError:
+        qDebug() << tr("!!!ERROR!!! accept socket error\n");
+        break;
+    case SendDataError:
+        qDebug() << tr("!!!ERROR!!! send data error\n");
+        break;
+    case ReceiveDataError:
+        qDebug() << tr("!!!ERROR!!! receive data error\n");
+        break;
+    default:
+        qDebug() << tr("!!!ERROR!!! unknown error\n");
+        break;
+    }
+}
+
+/////////////////////////////////////////////////////////////
