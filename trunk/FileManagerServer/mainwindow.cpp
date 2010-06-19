@@ -5,6 +5,7 @@
 
 #include "commandserverthread.h"
 #include "dataserverthread.h"
+#include "common.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     createWidgets();
     setupWidgets();
 
+    startErrorProcess();
     startServers();
 
 }
@@ -100,6 +102,11 @@ void MainWindow::setupWidgets()
     this->setMinimumSize(800,600);
     this->resize(1000,600);
 
+}
+
+void MainWindow::startErrorProcess()
+{
+    g_errorProcess = ErrorProcess::createErrorProcess();
 }
 
 void MainWindow::startServers()

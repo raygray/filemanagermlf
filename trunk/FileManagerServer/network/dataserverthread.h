@@ -4,6 +4,7 @@
 #include <QThread>
 #include <QMutex>
 #include <QHash>
+#include <QString>
 
 extern "C"
 {
@@ -23,10 +24,13 @@ public:
     void addTrans(DataTrans* trans);
     DataTrans* getAndPopTrans(int transId);
 signals:
-    void errorHappened(int errorCode);
+    void errorHappened(int errorCode, QString file, long long line);
 
 protected:
     void run();
+
+private:
+    void setupErrorProcess();
 
 private:
     SOCKET m_socket;

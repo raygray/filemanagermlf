@@ -29,6 +29,7 @@ private:
     void createWidgets();   //创建其他控件
     void setupWidgets();    //设置控件
 
+    void startErrorProcess(); //打开错误处理
     void startServers();    //开启服务线程
 
 private slots:

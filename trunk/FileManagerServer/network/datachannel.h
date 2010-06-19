@@ -16,12 +16,15 @@ public:
     explicit DataChannel(SOCKET socket, QObject *parent = NULL);
 
 signals:
-    void errorHappened(int errorCode);
+    void errorHappened(int errorCode, QString file, long long line);
 
 public slots:
 
 protected:
     void run();
+
+private:
+    void setupErrorProcess();
 
 private:
     SOCKET m_socket;
