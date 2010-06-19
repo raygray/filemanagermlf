@@ -111,6 +111,7 @@ void MainWindow::startErrorProcess()
 
 void MainWindow::startServers()
 {
+    setupSocketLib();
     CommandServerThread::createServer();
     DataServerThread::createServer();
 }
