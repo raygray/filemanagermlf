@@ -44,7 +44,8 @@ void printErrorInfo(QString filename, long long line)
 //////////////////////////////////////////////
 // functions of class ErrorProcess
 
-ErrorProcess::ErrorProcess()
+ErrorProcess::ErrorProcess(QObject *parent)
+    :QObject(parent)
 {
 }
 

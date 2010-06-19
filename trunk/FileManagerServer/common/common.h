@@ -17,7 +17,7 @@ class ErrorProcess : public QObject
 {
     Q_OBJECT
 private:
-    ErrorProcess();
+    ErrorProcess(QObject *parent = 0);
 
 public:
     static ErrorProcess* createErrorProcess();
