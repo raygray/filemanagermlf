@@ -9,6 +9,7 @@ SendDataThread::SendDataThread(SOCKET socket)
 
 void SendDataThread::sendData(const QByteArray &data)
 {
+    //防止不停的命令发送过来，先存储，然后慢慢发送
     QMutexLocker locker(&m_dataMutex);
     m_dataList.push_back(data);
     m_dataCondition.wakeAll();
