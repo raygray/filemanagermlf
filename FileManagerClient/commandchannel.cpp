@@ -46,10 +46,10 @@ void CommandChannel::run()
 
     m_sendDataThread->sendData(dataArray);
 
-    while(true)
-    {
-
-    }
+//    while(true)
+//    {
+//
+//    }
 
 
 }

@@ -37,7 +37,7 @@ void ConnectServer::run()
             qDebug() << "connect to server error\n";
             continue;
         }
-
+        qDebug() << tr("connect to server succeed\n");
         CommandChannel::createCommandChannel(socketFd);
 
     }
