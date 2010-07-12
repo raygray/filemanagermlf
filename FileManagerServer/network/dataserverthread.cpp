@@ -66,11 +66,24 @@ void DataServerThread::run()
 
 void DataServerThread::addTrans(DataTrans *trans)
 {
-
+    QMutexLocker locker(&m_transListMutex);
+    m_transList.insert(trans->getId(), trans);
 }
 
 DataTrans* DataServerThread::getAndPopTrans(int transId)
 {
+    QMutexLocker locker(&m_transListMutex);
+    QHash<int, DataTrans*>::iterator findIt = m_transList.find(transId);
+    if(findIt != m_transList.end())
+    {
+        DataTrans *result = *findIt;
+        m_transList.erase(findIt);
+        return result;
+    }
+    else
+    {
+        qDebug << tr("error transfer id");
+    }
     return 0;
 }
 
