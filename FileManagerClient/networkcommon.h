@@ -9,7 +9,9 @@ extern "C"
 {
 #include <winsock2.h>
 }
+#include <string>
 
+extern std::string ServerIp;
 extern const unsigned short CommandChannelPort; //命令通道端口号
 extern const unsigned short DataChannelPort;    //数据通道端口号
 

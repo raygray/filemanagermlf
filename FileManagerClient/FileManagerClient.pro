@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     senddatathread.cpp \
     receivefilecommand.cpp \
     delfilecommand.cpp \
-    renamefilecommand.cpp
+    renamefilecommand.cpp \
+    receivefilethread.cpp
 HEADERS += networkcommon.h \
     commandchannel.h \
     clientcommand.h \
@@ -25,5 +26,6 @@ HEADERS += networkcommon.h \
     senddatathread.h \
     receivefilecommand.h \
     delfilecommand.h \
-    renamefilecommand.h
+    renamefilecommand.h \
+    receivefilethread.h
 LIBS += -lws2_32

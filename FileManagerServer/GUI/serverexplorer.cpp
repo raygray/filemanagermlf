@@ -117,7 +117,7 @@ void ServerExplorer::doubleClkOnFileList(const QModelIndex & index)
         qfilePath.append("\"");
         if ( ! QDesktopServices::openUrl(QUrl(qfilePath)) )
         {
-            QMessageBox::information(this, tr("提示"), tr("没有相关的程序打开此文件"),
+            QMessageBox::information(this, tr("提示"), tr("没有相关联的程序打开此文件"),
                                      QMessageBox::Cancel);
         }
 
