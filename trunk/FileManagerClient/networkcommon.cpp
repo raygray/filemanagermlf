@@ -1,9 +1,6 @@
 #include "networkcommon.h"
-extern "C"
-{
-#include <winsock2.h>
-}
 
+std::string ServerIp = "127.0.0.1";
 const unsigned short CommandChannelPort = 2067;
 const unsigned short DataChannelPort = 2922;
 

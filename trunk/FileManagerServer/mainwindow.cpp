@@ -125,3 +125,8 @@ void MainWindow::about()
 {
     QMessageBox::about(this, tr("关于文件管理系统"), tr("VHBLCD网络广告\\文件管理系统"));
 }
+
+void MainWindow::sendFileToClient()
+{
+
+}

@@ -82,7 +82,7 @@ DataTrans* DataServerThread::getAndPopTrans(int transId)
     }
     else
     {
-        qDebug << tr("error transfer id");
+        qDebug() << tr("error transfer id") << __FILE__ << __LINE__;
     }
     return 0;
 }

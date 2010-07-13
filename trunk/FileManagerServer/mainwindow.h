@@ -35,6 +35,7 @@ private:
 private slots:
     void exit();
     void about();
+    void sendFileToClient();
 
 
 private:
