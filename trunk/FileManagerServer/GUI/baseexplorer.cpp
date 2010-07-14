@@ -53,9 +53,9 @@ void BaseExplorer::createWidgets()
     m_transListFrame = new QFrame(this);
     m_selectAllCheckBox = new QCheckBox(tr("ËùÓĞ"), this);
     m_delButton = new QPushButton(tr("É¾³ı"), this);
-    m_delButton->setEnabled(false);
+    //m_delButton->setEnabled(false);
     m_transButton = new QPushButton(this);
-    m_transButton->setEnabled(false);
+    //m_transButton->setEnabled(false);
 
 }
 
